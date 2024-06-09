@@ -15,22 +15,20 @@
 char	ft_getchar(int fd)
 {
 	static char		buf[BUFFER_SIZE];
-	static char		*bufp;
 	static int		n = 0;
 	static size_t	i = 0;
 
 	if (n == 0)
 	{
 		n = read(fd, buf, BUFFER_SIZE);
-		if (n < 0)
+		if (n == 0)
 			return (0);
-		bufp = buf;
+		if (n == -1)
+			return (-1);
 		i = 0;
 	}
 	n--;
-	if (n < 0)
-		return (EOF);
-	return (bufp[i++]);
+	return (buf[i++]);
 }
 
 char	*ft_str_c_join(char *str, char c)
@@ -38,32 +36,17 @@ char	*ft_str_c_join(char *str, char c)
 	size_t	len;
 	char	*result;
 
-	if (str == NULL)
-		len = 0;
-	else
-		len = ft_strlen(str);
+	len = 0;
+	if (str)
+		while (str[len])
+			len++;
 	result = malloc(sizeof(char) * (len + 2));
 	if (!result)
 		return (NULL);
-	ft_memcpy(result, str, len + 1);
+	ft_memcpy(result, str, len);
 	result[len] = c;
 	result[len + 1] = '\0';
 	return (result);
-}
-
-size_t	ft_strlen(char *str)
-{
-	size_t	i;
-	size_t	len;
-
-	i = 0;
-	len = 0;
-	while (str[i])
-	{
-		len++;
-		i++;
-	}
-	return (len);
 }
 
 void	*ft_memcpy(void *dst, const void *src, size_t n)
@@ -83,16 +66,4 @@ void	*ft_memcpy(void *dst, const void *src, size_t n)
 		i++;
 	}
 	return (dst);
-}
-
-char	*ft_c_to_str(char c)
-{
-	char	*result;
-
-	result = malloc(2);
-	if (!result)
-		return (NULL);
-	result[0] = c;
-	result[1] = '\0';
-	return (result);
 }

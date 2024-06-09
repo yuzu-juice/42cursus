@@ -17,23 +17,26 @@ char	*get_next_line(int fd)
 	char	c;
 	char	*str;
 	char	*tmp;
+	int		flag;
 
-	c = ft_getchar(fd);
-	if (c == EOF || c == 0)
+	str = NULL;
+	flag = 0;
+	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	str = ft_c_to_str(c);
-	if (!str)
-		return (NULL);
-	while (c != '\n' && c != EOF)
+	while (1)
 	{
 		c = ft_getchar(fd);
-		if (c == '\n' || c == EOF)
-			break ;
+		if (!str && (c == 0 || c == -1))
+			return (NULL);
+		if (c == '\n' || c == 0 || c == -1)
+			flag = 1;
 		tmp = ft_str_c_join(str, c);
 		free(str);
 		if (!tmp)
 			return (NULL);
 		str = tmp;
+		if (flag)
+			break ;
 	}
 	return (str);
 }
@@ -52,7 +55,7 @@ char	*get_next_line(int fd)
 //     char *line;
 //     while ((line = get_next_line(fd)) != NULL)
 //     {
-//         printf("output: %s\n", line);
+//         printf("output: %s", line);
 //         free(line);
 //     }
 
