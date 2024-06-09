@@ -16,27 +16,23 @@ char	*get_next_line(int fd)
 {
 	char	c;
 	char	*str;
-	char	*tmp;
 	int		flag;
 
 	str = NULL;
-	flag = 0;
+	flag = 1;
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	while (1)
+	while (flag)
 	{
 		c = ft_getchar(fd);
-		if (!str && (c == 0 || c == -1))
+		if ((!str && c == 0) || c == -1)
+		{
+			free(str);
 			return (NULL);
-		if (c == '\n' || c == 0 || c == -1)
-			flag = 1;
-		tmp = ft_str_c_join(str, c);
-		free(str);
-		if (!tmp)
-			return (NULL);
-		str = tmp;
-		if (flag)
-			break ;
+		}
+		if (c == '\n' || c == 0)
+			flag = 0;
+		str = ft_str_c_join(str, c);
 	}
 	return (str);
 }

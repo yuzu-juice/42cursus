@@ -21,10 +21,14 @@ char	ft_getchar(int fd)
 	if (n == 0)
 	{
 		n = read(fd, buf, BUFFER_SIZE);
+		if (n == -1)
+		{
+			n = 0;
+			i = 0;
+			return (-1);
+		}
 		if (n == 0)
 			return (0);
-		if (n == -1)
-			return (-1);
 		i = 0;
 	}
 	n--;
@@ -36,6 +40,15 @@ char	*ft_str_c_join(char *str, char c)
 	size_t	len;
 	char	*result;
 
+	if (!str)
+	{
+		result = malloc(sizeof(char) * 2);
+		if (!result)
+			return (NULL);
+		result[0] = c;
+		result[1] = '\0';
+		return (result);
+	}
 	len = 0;
 	if (str)
 		while (str[len])
@@ -44,6 +57,7 @@ char	*ft_str_c_join(char *str, char c)
 	if (!result)
 		return (NULL);
 	ft_memcpy(result, str, len);
+	free(str);
 	result[len] = c;
 	result[len + 1] = '\0';
 	return (result);
