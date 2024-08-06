@@ -8,7 +8,10 @@ SRCS	= main.c \
 	print_conversions/print_u.c \
 	print_conversions/print_lower_x.c \
 	print_conversions/print_upper_x.c \
-	print_conversions/print_percent.c
+	print_conversions/print_percent.c \
+	utils/ft_putchar.c \
+	utils/ft_putstr.c \
+	utils/ft_putnbr.c
 OBJS	= $(SRCS:.c=.o)
 HEADERS	= libftprintf.h
 CC	= cc
