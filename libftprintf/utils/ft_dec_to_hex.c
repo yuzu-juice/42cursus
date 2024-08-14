@@ -1,21 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putchar.c                                       :+:      :+:    :+:   */
+/*   ft_dec_to_hex.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: takitaga  <takitaga@student.42tokyo.>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/06 23:08:06 by takitaga          #+#    #+#             */
-/*   Updated: 2024/08/06 23:34:48 by takitaga         ###   ########.fr       */
+/*   Created: 2024/08/14 18:52:59 by takitaga          #+#    #+#             */
+/*   Updated: 2024/08/14 18:57:53 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libftprintf.h"
 
-ssize_t	ft_putchar(char c)
+char	ft_dec_to_lower_hex(unsigned int u)
 {
-	ssize_t	result;
+	if (u < 10)
+		return (u + '0');
+	else if (u >= 10 && u < 16)
+		return (u - 10 + 'a');
+	return (0);
+}
 
-	result = write(1, &c, 1);
-	return (result);
+char	ft_dec_to_upper_hex(unsigned int u)
+{
+	if (u < 10)
+		return (u + '0');
+	else if (u >= 10 && u < 16)
+		return (u - 10 + 'A');
+	return (0);
 }

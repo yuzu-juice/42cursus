@@ -1,23 +1,34 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   libftprintf.h                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: takitaga  <takitaga@student.42tokyo.>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/08/06 21:05:55 by takitaga          #+#    #+#             */
+/*   Updated: 2024/08/14 19:03:31 by takitaga         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef LIBFTPRINTF_H
 # define LIBFTPRINTF_H
+
+# define TRUE 1
+# define FALSE 0
 
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdarg.h>
 
-int     ft_printf(const char *, ...);
-void	print_c(char c);
-void	print_s(char *s);
-void	print_p(void *p);
-void	print_d(int d);
-void	print_i(int i);
-void	print_u(unsigned int u);
-void	print_lower_x(int x);
-void	print_upper_x(int x);
-void	print_percent(void);
+int		ft_printf(const char *fmt, ...);
+ssize_t	ft_putchar(char c);
+ssize_t	ft_putstr(char *s);
+ssize_t	ft_putnbr(int n);
+ssize_t	ft_putnbr_ui(unsigned int u);
+ssize_t	ft_putptr(uintptr_t p);
+ssize_t	ft_puthex(unsigned long x, int is_lower);
 
-void	ft_putchar(char c);
-void	ft_putstr(char *s);
-void	ft_putnbr(int n);
+char	ft_dec_to_lower_hex(unsigned int u);
+char	ft_dec_to_upper_hex(unsigned int u);
 
 #endif
