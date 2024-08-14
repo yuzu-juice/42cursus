@@ -14,7 +14,7 @@
 
 char	*get_next_line(int fd)
 {
-	char	c;
+	ssize_t	result;
 	char	*str;
 	int		flag;
 
@@ -24,15 +24,17 @@ char	*get_next_line(int fd)
 		return (NULL);
 	while (flag)
 	{
-		c = ft_getchar(fd);
-		if ((!str && c == 0) || c == -1)
+		result = ft_getchar(fd);
+		if ((!str && result == 0) || result == -1)
 		{
 			free(str);
 			return (NULL);
 		}
-		if (c == '\n' || c == 0)
+		if (result == '\n')
 			flag = 0;
-		str = ft_str_c_join(str, c);
+		if (result == 0 && str)
+			return (str);
+		str = ft_str_c_join(str, result);
 	}
 	return (str);
 }

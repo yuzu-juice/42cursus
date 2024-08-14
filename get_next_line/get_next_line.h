@@ -20,11 +20,9 @@
 # include <stddef.h>
 # include <unistd.h>
 # include <stdlib.h>
-# include <stdio.h>
 
-char	*get_next_line(int fd);
-char	ft_getchar(int fd);
-char	*ft_str_c_join(char *str, char c);
-void	*ft_memcpy(void *dst, const void *src, size_t n);
+char		*get_next_line(int fd);
+ssize_t		ft_getchar(int fd);
+char		*ft_str_c_join(char *str, char c);
 
 #endif
