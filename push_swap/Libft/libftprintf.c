@@ -62,3 +62,27 @@ int	ft_printf(const char *fmt, ...)
 	va_end(ap);
 	return (len);
 }
+
+int	ft_println(const char *fmt, ...)
+{
+	va_list	ap;
+	ssize_t	result;
+	size_t	len;
+
+	len = 0;
+	va_start(ap, fmt);
+	while (*fmt)
+	{
+		if (*fmt == '%')
+			result = formats(&ap, *++fmt);
+		else
+			result = ft_putchar(*fmt);
+		if (result < 0)
+			return (result);
+		len += result;
+		fmt++;
+	}
+	va_end(ap);
+	ft_printf("\n");
+	return (len);
+}

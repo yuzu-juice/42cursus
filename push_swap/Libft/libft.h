@@ -61,6 +61,7 @@ void			ft_putnbr_fd(int n, int fd);
 
 // libftprintf
 int				ft_printf(const char *fmt, ...);
+int				ft_println(const char *fmt, ...);
 ssize_t			ft_putchar(char c);
 ssize_t			ft_putstr(char *s);
 ssize_t			ft_putnbr(int n);

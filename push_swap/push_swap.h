@@ -12,12 +12,16 @@
 
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
+# define TRUE 1
+# define FALSE 0
 
 # include <stddef.h>
 # include <unistd.h>
 # include <stdlib.h>
+# include <limits.h>
 # include "Libft/libft.h"
 
+void	ft_qsort(int *elements, size_t start, size_t end);
 void	push_swap(int *elements, size_t size);
 void	sa(int *stack, int top);
 void	sb(int *stack, int top);
