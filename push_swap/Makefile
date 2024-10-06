@@ -1,11 +1,14 @@
-NAME	= push_swap
-UTILS	= utils
-SRCS	= push_swap.c \
-		ft_qsort.c \
-		$(UTILS)/swap.c \
-		$(UTILS)/push.c \
-		$(UTILS)/rotate.c \
-		$(UTILS)/reverse_rotate.c
+NAME		= push_swap
+OPERATIONS	= ops
+SRCS		= push_swap.c \
+			ft_qsort.c \
+			sort_utils.c \
+			get_index.c \
+			input_validation.c \
+			$(OPERATIONS)/swap.c \
+			$(OPERATIONS)/push.c \
+			$(OPERATIONS)/rotate.c \
+			$(OPERATIONS)/reverse_rotate.c
 
 OBJS	= $(SRCS:.c=.o)
 HEADERS	= push_swap.h

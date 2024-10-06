@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_qsort.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: takitaga  <takitaga@student.42tokyo.>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/09/02 00:02:03 by takitaga          #+#    #+#             */
+/*   Updated: 2024/09/02 00:02:03 by takitaga         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
 static void	swap(int *a, int *b)
@@ -7,6 +19,7 @@ static void	swap(int *a, int *b)
 	*a = *b;
 	*b = tmp;
 }
+
 void	ft_qsort(int *elements, size_t start, size_t end)
 {
 	int		pivot;

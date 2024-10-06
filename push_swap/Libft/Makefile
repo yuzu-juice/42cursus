@@ -10,7 +10,7 @@ SRCS	= ft_isalpha.c ft_isdigit.c ft_isalnum.c ft_isascii.c \
 	ft_putendl_fd.c ft_putnbr_fd.c libftprintf.c \
 	ft_putchar.c ft_putstr.c ft_putnbr.c ft_putnbr_ui.c \
 	ft_putptr.c ft_puthex.c ft_dec_to_hex.c ft_isnum.c \
-	ft_atoi.c
+	ft_atoi.c ft_isspace.c
 
 OBJS	= $(SRCS:.c=.o)
 HEADERS	= libft.h

@@ -12,7 +12,6 @@
 
 #include "libft.h"
 
-static int	ft_isspace(const char c);
 static int	check_overflow(int sign, long l, char next);
 
 int	ft_atoi(const char *nptr)
@@ -41,14 +40,6 @@ int	ft_atoi(const char *nptr)
 		i++;
 	}
 	return ((int)(sign * ret_value));
-}
-
-static int	ft_isspace(const char c)
-{
-	if (c == ' ' || c == '\f' || c == '\n'
-		|| c == '\r' || c == '\t' || c == '\v')
-		return (1);
-	return (0);
 }
 
 static int	check_overflow(int sign, long l, char next)

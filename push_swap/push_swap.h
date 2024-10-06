@@ -21,18 +21,32 @@
 # include <limits.h>
 # include "Libft/libft.h"
 
+typedef struct	s_stack {
+	int	*stack;
+	int	top;
+}			t_stack;
+
 void	ft_qsort(int *elements, size_t start, size_t end);
-void	push_swap(int *elements, size_t size);
-void	sa(int *stack, int top);
-void	sb(int *stack, int top);
-void	ss(int *stack_a, int *stack_b, int top_a, int top_b);
-void	pa(int *stack_a, int *stack_b, int *top_a, int *top_b);
-void	pb(int *stack_a, int *stack_b, int *top_a, int *top_b);
-void	ra(int *stack_a, int top_a);
-void	rb(int *stack_b, int top_b);
-void	rr(int *stack_a, int *stack_b, int top_a, int top_b);
-void	rra(int *stack_a, int top_a);
-void	rrb(int *stack_b, int top_b);
-void	rrr(int *stack_a, int *stack_b, int top_a, int top_b);
+int		has_duplicates(int *elements, int size);
+int		is_valid_num(char *num);
+void	sa(t_stack *stack);
+void	sb(t_stack *stack);
+void	ss(t_stack *stack_a, t_stack *stack_b);
+void	pa(t_stack *stack_a, t_stack *stack_b);
+void	pb(t_stack *stack_a, t_stack *stack_b);
+void	ra(t_stack *stack_a);
+void	rb(t_stack *stack_b);
+void	rr(t_stack *stack_a, t_stack *stack_b);
+void	rra(t_stack *stack_a);
+void	rrb(t_stack *stack_b);
+void	rrr(t_stack *stack_a, t_stack *stack_b);
+int		is_sorted(t_stack stack);
+void	sort_three(t_stack *stack);
+void	sort_four(t_stack *stack_a, t_stack *stack_b);
+void	sort_more_than_five(t_stack *stack_a, t_stack *stack_b);
+int		get_max_index(int *stack, size_t size);
+int		get_min_index(int *stack, size_t size);
+int		get_largest_number_index_less_than(int *stack, size_t size, int target);
+int		get_smallest_number_index_more_than(int *stack, size_t size, int target);
 
 #endif
