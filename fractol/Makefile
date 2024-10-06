@@ -4,7 +4,7 @@ SRCS	= main.c
 OBJS	= $(SRCS:.c=.o)
 HEADERS	= fractol.h
 CC	= cc
-CFLAGS	= -Wall -Wextra -Werror
+CFLAGS	= -Wall -Wextra -Werror -O2
 
 MINILIBX_URL := https://cdn.intra.42.fr/document/document/27135/minilibx-linux.tgz
 MINILIBX_TAR_GZ := minilibx-linux.tgz
