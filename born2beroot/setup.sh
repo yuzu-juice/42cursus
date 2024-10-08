@@ -18,19 +18,31 @@ firewall-cmd --list-all
 - PermitRootLogin yes
 + PermitRootLogin no
 
-sudo systemctl restart sshd
 
 ## modify selinux
-https://shachikunbot.com/sshd-selinux/
+# https://shachikunbot.com/sshd-selinux/
+# for semanage command
+dnf -y install policycoreutils-python-utils
+sudo semanage port -l | grep ssh
+sudo semanage port -a -t ssh_port_t -p tcp 4242
+sudo semanage port -l | grep ssh
 
+sudo systemctl restart sshd
 
 ##
 # You have to configure your operating system with the firewalld
 # firewall and thus leave only port 4242 open in your virtual machine.
 
 ## modify firewalld
-https://qiita.com/fk_2000/items/019b62818e34be973227
+# https://qiita.com/fk_2000/items/019b62818e34be973227
+sudo firewall-cmd --permanent --remove-service=ssh
+sudo cp /usr/lib/firewalld/services/ssh.xml /etc/firewalld/services/ssh-4242.xml
+sudo nano /etc/firewalld/services/ssh-4242.xml
+- <port protocol="tcp" port="22" />
++ <port protocol="tcp" port="4242" />
 
+sudo firewall-cmd --permanent --add-service=ssh-4242
+sudo firewall-cmd --reload
 
 ##
 # The hostname of your virtual machine must be your login ending
@@ -90,7 +102,11 @@ passwd takitaga42
 cat /etc/passwd | grep takitaga42
 cat /etc/group | grep takitaga42
 
-
+sudo groupadd user42
+sudo usermod -aG user42 takitaga42
+sudo usermod -aG wheel takitaga42
+groups takitaga42
+logout
 
 ##
 # You have to create a simple script called monitoring.sh. It must be
