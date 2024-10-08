@@ -22,6 +22,7 @@
 # include <stdarg.h>
 
 // Part1
+int				ft_isspace(char c);
 int				ft_isalpha(int c);
 int				ft_isdigit(int c);
 int				ft_isalnum(int c);
@@ -61,6 +62,7 @@ void			ft_putnbr_fd(int n, int fd);
 
 // libftprintf
 int				ft_printf(const char *fmt, ...);
+int				ft_println(const char *fmt, ...);
 ssize_t			ft_putchar(char c);
 ssize_t			ft_putstr(char *s);
 ssize_t			ft_putnbr(int n);

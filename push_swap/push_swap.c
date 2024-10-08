@@ -12,120 +12,133 @@
 
 #include "push_swap.h"
 
-int main(int argc, char *argv[]) {
-	int	i;
-	int	*elements;
+// static void	print_stack(t_stack *stack_a, t_stack *stack_b, size_t size)
+// {
+// 	size_t	i;
+// 	int		flag;
+
+// 	i = 0;
+// 	flag = TRUE;
+// 	if (stack_a->top == -1)
+// 		ft_printf("stack_a is empty.\n");
+// 	while (i < size)
+// 	{
+// 		if (flag)
+// 			ft_printf("a[%u]: %d", i, stack_a->stack[i]);
+// 		else
+// 			ft_printf("a[%u]:", i);
+// 		if ((size_t)stack_a->top == i)
+// 		{
+// 			ft_printf(" <- top");
+// 			flag = FALSE;
+// 		}
+// 		ft_printf("\n");
+// 		i++;
+// 	}
+// 	ft_printf("\n");
+// 	if (stack_b->top == -1)
+// 		ft_printf("stack_b is empty.\n");
+// 	i = 0;
+// 	flag = TRUE;
+// 	while (i < size)
+// 	{
+// 		if (flag)
+// 			ft_printf("b[%u]: %d", i, stack_b->stack[i]);
+// 		else
+// 			ft_printf("b[%u]:", i);
+// 		if ((size_t)stack_b->top == i)
+// 		{
+// 			ft_printf(" <- top");
+// 			flag = FALSE;
+// 		}
+// 		ft_printf("\n");
+// 		i++;
+// 	}
+// 	ft_printf("\n\n-------------------------\n\n");
+// }
+
+
+static void	push_swap_sort(t_stack *stack_a, t_stack *stack_b)
+{
+	if (is_sorted(*stack_a))
+		return ;
+	if (stack_a->top == 1)
+		if (stack_a->stack[0] < stack_a->stack[1])
+			sa(stack_a);
+	if (stack_a->top == 2)
+		sort_three(stack_a);
+	if (stack_a->top == 3)
+		sort_four(stack_a, stack_b);
+	if (stack_a->top >= 4)
+		sort_more_than_five(stack_a, stack_b);
+}
+
+static void normalize_stack(int *elements, t_stack *stack_a, size_t size)
+{
+	size_t	i;
+	size_t	j;
+
+	ft_qsort(elements, 0, size - 1);
+	i = 0;
+	while (i < size)
+	{
+		j = 0;
+		while (j < size)
+		{
+			if (stack_a->stack[j] == elements[i])
+			{
+				stack_a->stack[j] = i;
+				break ;
+			}
+			j++;
+		}
+		i++;
+	}
+}
+
+static void	push_swap_init(int *elements, size_t size, t_stack *stack_a, t_stack *stack_b)
+{
+	size_t	i;
+
+    stack_a->stack = ft_calloc(size, sizeof(int));
+    stack_b->stack = ft_calloc(size, sizeof(int));
+    if (!stack_a->stack || !stack_b->stack)
+        return ;
+	stack_a->top = size - 1;
+	stack_b->top = -1;
+
+	i = 0;
+	while (i < size)
+	{
+		stack_a->stack[i] = elements[i];
+		i++;
+	}
+	normalize_stack(elements, stack_a, size);
+}
+
+int main(int argc, char *argv[])
+{
+	int		i;
+	int		elements[argc - 1];
+	t_stack	stack_a;
+	t_stack	stack_b;
 
 	i = 1;
-	elements = malloc(sizeof(int) * (argc - 1));
 	while (i < argc)
 	{
-		if (!ft_isnum(argv[i]))
-		{
-			ft_printf("Error\n");
+		if (!is_valid_num(argv[i]))
 			return (1);
-		}
 		elements[argc - i - 1] = ft_atoi(argv[i]);
-		// implement duplicate check
-		// validate if inputs in range of int
 		i++;
 	}
-	push_swap(elements, argc - 1);
-	free(elements);
+	if (has_duplicates(elements, argc - 1))
+	{
+		ft_printf("Error\n");
+		return (1);
+	}
+	push_swap_init(elements, argc - 1, &stack_a, &stack_b);
+	push_swap_sort(&stack_a, &stack_b);
+	free(stack_a.stack);
+	free(stack_b.stack);
 	return (0);
-}
-
-static void	print_stack(int *stack_a, int *stack_b, int top_a, int top_b, size_t size)
-{
-	size_t	i;
-	int		flag;
-
-	i = 0;
-	flag = TRUE;
-	if (top_a == -1)
-		ft_printf("stack_a is empty.\n");
-	while (i < size)
-	{
-		if (flag)
-			ft_printf("a[%u]: %d", i, stack_a[i]);
-		else
-			ft_printf("a[%u]:", i);
-		if ((size_t)top_a == i)
-		{
-			ft_printf(" <- top");
-			flag = FALSE;
-		}
-		ft_printf("\n");
-		i++;
-	}
-	ft_printf("\n");
-	if (top_b == -1)
-		ft_printf("stack_b is empty.\n");
-	i = 0;
-	flag = TRUE;
-	while (i < size)
-	{
-		if (flag)
-			ft_printf("b[%u]: %d", i, stack_b[i]);
-		else
-			ft_printf("b[%u]:", i);
-		if ((size_t)top_b == i)
-		{
-			ft_printf(" <- top");
-			flag = FALSE;
-		}
-		ft_printf("\n");
-		i++;
-	}
-	ft_printf("\n\n-------------------------\n\n");
-}
-
-void	push_swap(int *elements, size_t size)
-{
-	int		stack_a[size];
-	int		stack_b[size];
-	int		top_a;
-	int		top_b;
-	size_t	i;
-
-	ft_memset(stack_a, 0, sizeof(int) * size);
-	ft_memset(stack_b, 0, sizeof(int) * size);
-	top_a = size - 1;
-	top_b = -1;
-
-	i = 0;
-	while (i < size)
-	{
-		stack_a[i] = elements[i];
-		i++;
-	}
-	ft_printf("defalut\n");
-	print_stack(stack_a, stack_b, top_a, top_b, size);
-
-	sa(stack_a, top_a);
-	print_stack(stack_a, stack_b, top_a, top_b, size);
-
-	pb(stack_a, stack_b, &top_a, &top_b);
-	print_stack(stack_a, stack_b, top_a, top_b, size);
-
-	sb(stack_b, top_b);
-	print_stack(stack_a, stack_b, top_a, top_b, size);
-
-	pb(stack_a, stack_b, &top_a, &top_b);
-	print_stack(stack_a, stack_b, top_a, top_b, size);
-
-	sb(stack_b, top_b);
-	print_stack(stack_a, stack_b, top_a, top_b, size);
-
-	ra(stack_a, top_a);
-	print_stack(stack_a, stack_b, top_a, top_b, size);
-
-	rb(stack_b, top_b);
-	print_stack(stack_a, stack_b, top_a, top_b, size);
-
-	rr(stack_a, stack_b, top_a, top_b);
-	print_stack(stack_a, stack_b, top_a, top_b, size);
-	
-	rrr(stack_a, stack_b, top_a, top_b);
-	print_stack(stack_a, stack_b, top_a, top_b, size);
 }
