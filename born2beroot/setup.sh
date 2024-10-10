@@ -69,9 +69,25 @@ sudo hostnamectl set-hostname takitaga42
 #   of the former password.
 # - Of course, your root password has to comply with this policy.
 
-## modify PAM
-/etc/pam.d/system-auth
-/etc/security/pwquality.conf
+# /etc/login.defs
+## expire every 30 days
+PASS_MAX_DAYS   30
+
+## minimum days allowed before the modification
+PASS_MIN_DAYS   2
+
+## warning message 7 days before the password expires
+PASS_WARN_AGE   7
+
+# /etc/pam.d/system-auth
+
+## min len 10 charas long
+pam_cracklib.so minlen=10
+
+## contain an uppercase, a lowercase, and a number
+
+# just use following resources
+https://ja.unixlinux.online/ou/1007003655.html
 https://mseeeen.msen.jp/how-to-set-password-policy-in-centos7/
 
 
