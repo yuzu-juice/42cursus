@@ -1,6 +1,8 @@
 ##
 # You must create at least 2 encrypted partitions using LVM.
 
+sudo dnf -y install nano
+
 ##
 # A SSH service will be runngin on the mandatory port 4242
 # in your virtual machine. For security reasons, it must not
@@ -62,7 +64,7 @@ sudo hostnamectl set-hostname takitaga42
 #   password expires.
 # - You password must be at least 10 characters long. It must contain
 #   an uppercase letter, a lowercase letter, and a number. Also,
-#   it must not contain more than 3 consecutive identical charaters.
+#   it must not contain more than 3 consecutive identical characters.
 # - The password must not include the name of the user.
 # - The following rule does not apply to the root password:
 #   The password must have at least 7 characters that are not part
@@ -79,18 +81,30 @@ PASS_MIN_DAYS   2
 ## warning message 7 days before the password expires
 PASS_WARN_AGE   7
 
+sudo pwconv
+
 # /etc/pam.d/system-auth
 
+# /etc/security/pwquality.conf
 ## min len 10 charas long
-pam_cracklib.so minlen=10
+minlen = 10
 
 ## contain an uppercase, a lowercase, and a number
+lcredit = -1 # lowercase
+ucredit = -1 # uppercase
+dcredit = -1 # number
 
-# just use following resources
-https://ja.unixlinux.online/ou/1007003655.html
-https://mseeeen.msen.jp/how-to-set-password-policy-in-centos7/
+## must not contain more than 3 consecutive identical characters
+maxrepeat = 3
 
+## must not include the name of the user
+reject_username
 
+## must have at least 7 charas that are not part of the former password
+difok = 7
+
+## root password has to comply with this policy
+enforce_for_root
 
 ##
 # You have to install and configure sudo following strict rules.
@@ -98,7 +112,7 @@ https://mseeeen.msen.jp/how-to-set-password-policy-in-centos7/
 # - Authentication using sudo has to be limited to 3 attempts
 #   in the event of an incorrect password.
 # - A custom message of your choice has to be displayed if an error
-#   due to a wrong password occurswhen using sudo.
+#   due to a wrong password occurs when using sudo.
 # - Each action using sudo has to be archived, both inputs and outputs.
 #   The log file has to be saved in the /var/log/sudo/ folder.
 # - The TTY mode has to be enabled for security reasons.
@@ -107,8 +121,25 @@ https://mseeeen.msen.jp/how-to-set-password-policy-in-centos7/
 #   Example:
 #   /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin
 man sudoers
-visudo
+sudo EDITOR=nano visudo
 
+## limited to 3 attempts
+Defaults	passwd_tries=3
+
+## custom message
+Defaults	badpass_message="Password is incorrect!"
+
+## archived both inputs and outputs
+Defaults	log_input, log_output
+
+## log file has to be saved in the /var/log/sudo/ folder
+Defaults	logfile="/var/log/sudo/sudo.log"
+
+## TTY mode has to be enabled
+Defaults	requiretty
+
+## tha paths that can be used by sudo must be restricted
+Defaults	secure_path="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
 
 ##
 # In addition to the root user, a user with your login as username
@@ -144,3 +175,5 @@ logout
 # - The number of users using the server.
 # - The IPv4 address of your server and its MAC address.
 # - The number of command executed with the sudo program.
+
+crontab crontab.txt
