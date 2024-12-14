@@ -100,10 +100,10 @@ static void	push_swap_init(int *elements, size_t size, t_stack *stack_a, t_stack
 {
 	size_t	i;
 
-    stack_a->stack = ft_calloc(size, sizeof(int));
-    stack_b->stack = ft_calloc(size, sizeof(int));
-    if (!stack_a->stack || !stack_b->stack)
-        return ;
+	stack_a->stack = ft_calloc(size, sizeof(int));
+	stack_b->stack = ft_calloc(size, sizeof(int));
+	if (!stack_a->stack || !stack_b->stack)
+		return ;
 	stack_a->top = size - 1;
 	stack_b->top = -1;
 

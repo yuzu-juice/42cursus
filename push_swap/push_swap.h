@@ -21,7 +21,7 @@
 # include <limits.h>
 # include "Libft/libft.h"
 
-typedef struct	s_stack {
+typedef struct s_stack {
 	int	*stack;
 	int	top;
 }			t_stack;

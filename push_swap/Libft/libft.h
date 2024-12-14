@@ -20,6 +20,7 @@
 # include <stdlib.h>
 # include <limits.h>
 # include <stdarg.h>
+# include <stdint.h>
 
 // Part1
 int				ft_isspace(char c);

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "push_swap.h"
+#include "push_swap.h"
 
 int	has_duplicates(int *elements, int size)
 {
@@ -31,7 +31,6 @@ int	has_duplicates(int *elements, int size)
 	}
 	return (FALSE);
 }
-
 
 static int	check_overflow(int sign, long l, char next)
 {

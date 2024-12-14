@@ -57,12 +57,12 @@ void	sort_more_than_five(t_stack *stack_a, t_stack *stack_b)
 {
 	int	max_index_b;
 	int	min_index_b;
-	int max_index_a;
-	int min_index_a;
+	int	max_index_a;
+	int	min_index_a;
 	int	largest_less_than_index_b;
-	int smallest_more_than_index_a;
-	int max;
-	int min;
+	int	smallest_more_than_index_a;
+	int	max;
+	int	min;
 
 	pb(stack_a, stack_b);
 	pb(stack_a, stack_b);
@@ -85,14 +85,12 @@ void	sort_more_than_five(t_stack *stack_a, t_stack *stack_b)
 				rb(stack_b);
 			pb(stack_a, stack_b);
 		}
-
 		max_index_b = get_max_index(stack_b->stack, stack_b->top + 1);
 		max = stack_b->stack[max_index_b];
 		while (stack_b->stack[stack_b->top] != max)
 			rb(stack_b);
 	}
 	sort_three(stack_a);
-
 	while (stack_b->top > -1)
 	{
 		max_index_a = get_max_index(stack_a->stack, stack_a->top + 1);
